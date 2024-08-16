@@ -1,10 +1,12 @@
 const twilio = require('twilio');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
+require('dotenv').config();
 
 // Twilio account credentials
-const accountSid = 'ACef13f8dd2677f845cbe0125b03f40ca7';
-const authToken = '514047972e71fc3f9d5c17fd2c8fbc56';
-const twilioPhoneNumber = '+13347814860';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER; 
+
 const client = twilio(accountSid, authToken);
 
 // Function to handle the initial voice call
@@ -12,7 +14,7 @@ const handleVoiceCall = (req, res) => {
     const twiml = new VoiceResponse();
 
     // Play the provided MP3 file
-    twiml.play('https://your-server.com/path-to-your-audio.mp3'); // Replace with the actual URL to your MP3 file
+    twiml.play('http://localhost:3000/static/your-audio-file.mp3'); // Replace with the actual URL to your MP3 file
 
     // Gather input from the user
     const gather = twiml.gather({
